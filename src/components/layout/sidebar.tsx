@@ -27,7 +27,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       <div className="flex h-16 items-center px-4 border-b border-border">
         <div className="flex items-center gap-3 overflow-hidden">
           <div className="flex h-9 shrink-0 items-center justify-center">
-            <img src="/logo.png" alt={APP_NAME} className="h-full w-auto object-contain" />
+            <img src="/dailyexpress.PNG" alt={APP_NAME} className="h-full w-auto object-contain" />
           </div>
           <AnimatePresence>
             {!collapsed && (
@@ -160,7 +160,7 @@ export function MobileSidebar({ open, onOpenChange }: MobileSidebarProps) {
         <div className="flex h-16 items-center px-6 border-b border-border">
           <div className="flex items-center gap-3">
             <div className="flex h-9 items-center justify-center">
-              <img src="/logo.png" alt={APP_NAME} className="h-full w-auto object-contain" />
+              <img src="/dailyexpress.PNG" alt={APP_NAME} className="h-full w-auto object-contain" />
             </div>
             <span className="text-base font-bold">{APP_NAME}</span>
           </div>

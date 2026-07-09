@@ -58,7 +58,7 @@ export function LoginPage() {
           className="text-center"
         >
           <div className="mx-auto mb-8 flex h-44 w-44 items-center justify-center rounded-[28px] border border-border/60 bg-white p-5 shadow-xl">
-            <img src="/logo-v1.png" alt={APP_NAME} className="h-full w-full object-contain" />
+            <img src="/dailyexpress.PNG" alt={APP_NAME} className="h-full w-full object-contain" />
           </div>
           <h1 className="mb-3 text-4xl font-bold text-white">{APP_NAME}</h1>
           <p className="mx-auto max-w-md text-lg text-white/60">
@@ -89,7 +89,7 @@ export function LoginPage() {
         >
           <div className="mb-8 flex items-center gap-3 lg:hidden">
             <div className="flex h-12 w-12 items-center justify-center rounded-[14px] border border-border bg-white p-2 shadow-sm">
-              <img src="/logo-v1.png" alt={APP_NAME} className="h-full w-full object-contain" />
+              <img src="/dailyexpress.PNG" alt={APP_NAME} className="h-full w-full object-contain" />
             </div>
             <span className="text-xl font-bold text-primary">{APP_NAME}</span>
           </div>
