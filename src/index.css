@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* ─── Tailwind v4 Theme ───────────────────────────────────────── */
+@theme {
+  /* Colors */
+  --color-primary: #111111;
+  --color-primary-hover: #2A2A2A;
+  --color-secondary: #F6E7A9;
+  --color-secondary-hover: #F0DC8A;
+  --color-accent: #DDF3E5;
+  --color-background: #FFFFFF;
+  --color-surface: #FAFAFA;
+  --color-surface-hover: #F5F5F5;
+  --color-border: #ECECEC;
+  --color-success: #43A047;
+  --color-warning: #FFB300;
+  --color-error: #E53935;
+
+  --color-text-primary: #111111;
+  --color-text-secondary: #6B7280;
+  --color-text-muted: #9CA3AF;
+  --color-text-inverse: #FFFFFF;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  /* Shadows */
+  --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+  --shadow-elevated: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+  --shadow-modal: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -4px rgba(0, 0, 0, 0.02);
+
+  /* Font Family */
+  --font-sans: 'Poppins', sans-serif;
+
+  /* Animation */
+  --animate-fade-in: fade-in 0.2s ease-out;
+  --animate-slide-up: slide-up 0.3s ease-out;
+  --animate-slide-down: slide-down 0.3s ease-out;
+  --animate-scale-in: scale-in 0.2s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ─── shadcn/ui CSS Variables ─────────────────────────────────── */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 6.7%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 6.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 6.7%;
+  --primary: 0 0% 6.7%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 46 82% 81%;
+  --secondary-foreground: 0 0% 6.7%;
+  --muted: 0 0% 98%;
+  --muted-foreground: 220 9% 46%;
+  --accent: 140 51% 91%;
+  --accent-foreground: 0 0% 6.7%;
+  --destructive: 4 82% 56%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 93%;
+  --input: 0 0% 93%;
+  --ring: 0 0% 6.7%;
+  --radius: 20px;
+  --chart-1: 0 0% 6.7%;
+  --chart-2: 46 82% 81%;
+  --chart-3: 140 51% 91%;
+  --chart-4: 122 39% 44%;
+  --chart-5: 45 100% 50%;
+}
+
+/* ─── Base Styles ─────────────────────────────────────────────── */
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D1D5DB;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF;
+}
+
+/* ─── Selection ───────────────────────────────────────────────── */
+::selection {
+  background-color: #F6E7A9;
+  color: #000000;
+}
+
+/* ─── Focus Ring ──────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
+/* ─── Skeleton animation ─────────────────────────────────────── */
+.react-loading-skeleton {
+  --base-color: #f3f4f6;
+  --highlight-color: #e5e7eb;
+}
