@@ -37,7 +37,8 @@ export function Breadcrumbs() {
       {segments.map((segment, index) => {
         const path = '/' + segments.slice(0, index + 1).join('/');
         const isLast = index === segments.length - 1;
-        const label = routeLabels[segment] ?? segment.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+        const isUuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(segment);
+        const label = routeLabels[segment] ?? (isUuid ? 'Details' : segment.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()));
 
         return (
           <div key={path} className="flex items-center gap-1.5">

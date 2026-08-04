@@ -148,7 +148,7 @@ export function CategoriesPage() {
               Edit
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={() => setDeleteTarget(row.original.id)}
+              onSelect={() => setTimeout(() => setDeleteTarget(row.original.id), 0)}
               className="text-error"
             >
               <Trash2 className="mr-2 h-4 w-4" />
@@ -248,7 +248,7 @@ export function CategoriesPage() {
                     data-state={row.getIsSelected() && 'selected'}
                     className="cursor-pointer"
                     onClick={(e) => {
-                      if ((e.target as HTMLElement).closest('button') || (e.target as HTMLElement).closest('input')) return;
+                      if ((e.target as HTMLElement).closest('button') || (e.target as HTMLElement).closest('input') || (e.target as HTMLElement).closest('[role="menuitem"]')) return;
                       navigate(`/categories/${row.original.id}/edit`);
                     }}
                   >

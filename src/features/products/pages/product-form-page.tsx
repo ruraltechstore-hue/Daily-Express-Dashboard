@@ -167,7 +167,7 @@ export function ProductFormPage() {
       active: values.active,
       shelf_life: values.shelf_life ? `${values.shelf_life} Days` : null,
       storage_instructions: values.storage_instructions || null,
-      nutritional_info: values.nutritional_info || null,
+      nutritional_info: values.nutritional_info && Object.values(values.nutritional_info).some(v => v !== undefined) ? values.nutritional_info : null,
     };
 
     if (isEdit && id) {
@@ -237,7 +237,7 @@ export function ProductFormPage() {
       >
         {/* Left Column - Main details */}
         <div className="lg:col-span-2 space-y-6">
-          <Card>
+          <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="text-base">Basic Details</CardTitle>
             </CardHeader>
@@ -339,9 +339,9 @@ export function ProductFormPage() {
           </Card>
 
           {/* Nutritional Facts */}
-          <Card>
+          <Card className="shadow-lg">
             <CardHeader>
-              <CardTitle className="text-base">Nutritional Info (per 100ml/g)</CardTitle>
+              <CardTitle className="text-base">Nutritional Info (per 100ml/g) <span className="text-sm font-normal text-text-muted">(Optional)</span></CardTitle>
             </CardHeader>
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -368,7 +368,7 @@ export function ProductFormPage() {
           </Card>
 
           {/* Image Gallery */}
-          <Card>
+          <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="text-base">Product Images</CardTitle>
             </CardHeader>
@@ -458,7 +458,7 @@ export function ProductFormPage() {
 
         {/* Right Column - Pricing & Status */}
         <div className="space-y-6">
-          <Card>
+          <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="text-base">Pricing & Inventory</CardTitle>
             </CardHeader>
@@ -477,7 +477,7 @@ export function ProductFormPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="text-base">Visibility</CardTitle>
             </CardHeader>

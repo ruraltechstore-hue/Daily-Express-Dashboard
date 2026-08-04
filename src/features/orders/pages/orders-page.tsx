@@ -167,7 +167,14 @@ export function OrdersPage() {
               </TableHeader>
               <TableBody>
                 {table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id} className="cursor-pointer" onClick={() => navigate(`/orders/${row.original.id}`)}>
+                  <TableRow 
+                    key={row.id} 
+                    className="cursor-pointer" 
+                    onClick={(e) => {
+                      if ((e.target as HTMLElement).closest('button') || (e.target as HTMLElement).closest('input') || (e.target as HTMLElement).closest('[role="menuitem"]')) return;
+                      navigate(`/orders/${row.original.id}`)
+                    }}
+                  >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
