@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { APP_NAME } from '@/config/constants';
+import { usePendingWithdrawalsCount } from '@/features/withdrawals/hooks/use-withdrawals';
 
 interface SidebarProps {
   collapsed: boolean;
@@ -15,6 +16,7 @@ interface SidebarProps {
 
 export function Sidebar({ collapsed, onToggle }: SidebarProps) {
   const location = useLocation();
+  const pendingWithdrawals = usePendingWithdrawalsCount();
 
   return (
     <motion.aside
@@ -68,6 +70,8 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                   const isActive = location.pathname === item.href ||
                     (item.href !== '/' && location.pathname.startsWith(item.href));
 
+                  const badgeCount = item.href === '/withdrawals' ? pendingWithdrawals : 0;
+
                   const linkContent = (
                     <NavLink
                       key={item.href}
@@ -80,7 +84,12 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                         collapsed && 'justify-center px-0'
                       )}
                     >
-                      <item.icon className={cn('h-5 w-5 shrink-0', collapsed && 'h-5 w-5')} />
+                      <div className="relative flex items-center justify-center">
+                        <item.icon className={cn('h-5 w-5 shrink-0', collapsed && 'h-5 w-5')} />
+                        {collapsed && badgeCount > 0 && (
+                          <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-amber-500 ring-2 ring-white animate-pulse" />
+                        )}
+                      </div>
                       <AnimatePresence>
                         {!collapsed && (
                           <motion.span
@@ -88,9 +97,17 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                             animate={{ opacity: 1, width: 'auto' }}
                             exit={{ opacity: 0, width: 0 }}
                             transition={{ duration: 0.15 }}
-                            className="whitespace-nowrap overflow-hidden"
+                            className="whitespace-nowrap overflow-hidden flex-1 flex items-center justify-between"
                           >
-                            {item.title}
+                            <span>{item.title}</span>
+                            {badgeCount > 0 && (
+                              <span className={cn(
+                                'ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold',
+                                isActive ? 'bg-white text-primary' : 'bg-amber-500 text-white shadow-sm'
+                              )}>
+                                {badgeCount}
+                              </span>
+                            )}
                           </motion.span>
                         )}
                       </AnimatePresence>
@@ -149,6 +166,7 @@ interface MobileSidebarProps {
 
 export function MobileSidebar({ open, onOpenChange }: MobileSidebarProps) {
   const location = useLocation();
+  const pendingWithdrawals = usePendingWithdrawalsCount();
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -177,6 +195,7 @@ export function MobileSidebar({ open, onOpenChange }: MobileSidebarProps) {
                   {group.items.map((item) => {
                     const isActive = location.pathname === item.href ||
                       (item.href !== '/' && location.pathname.startsWith(item.href));
+                    const badgeCount = item.href === '/withdrawals' ? pendingWithdrawals : 0;
 
                     return (
                       <NavLink
@@ -184,14 +203,24 @@ export function MobileSidebar({ open, onOpenChange }: MobileSidebarProps) {
                         to={item.href}
                         onClick={() => onOpenChange(false)}
                         className={cn(
-                          'flex items-center gap-3 rounded-[16px] px-3 py-2.5 text-sm font-medium transition-all duration-200',
+                          'flex items-center justify-between rounded-[16px] px-3 py-2.5 text-sm font-medium transition-all duration-200',
                           isActive
                             ? 'bg-primary text-white'
                             : 'text-text-secondary hover:bg-surface-hover hover:text-text-primary'
                         )}
                       >
-                        <item.icon className="h-5 w-5 shrink-0" />
-                        <span>{item.title}</span>
+                        <div className="flex items-center gap-3">
+                          <item.icon className="h-5 w-5 shrink-0" />
+                          <span>{item.title}</span>
+                        </div>
+                        {badgeCount > 0 && (
+                          <span className={cn(
+                            'inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold',
+                            isActive ? 'bg-white text-primary' : 'bg-amber-500 text-white shadow-sm'
+                          )}>
+                            {badgeCount}
+                          </span>
+                        )}
                       </NavLink>
                     );
                   })}

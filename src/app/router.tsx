@@ -55,6 +55,9 @@ const ReportsPage = lazy(() =>
 const SettingsPage = lazy(() =>
   import('@/features/settings/pages/settings-page').then((m) => ({ default: m.SettingsPage }))
 );
+const WithdrawalsPage = lazy(() =>
+  import('@/features/withdrawals/pages/withdrawals-page').then((m) => ({ default: m.WithdrawalsPage }))
+);
 
 // ─── Suspense Wrapper ────────────────────────────────────────────
 function LazyPage({ children }: { children: React.ReactNode }) {
@@ -134,6 +137,10 @@ export const router = createBrowserRouter([
       {
         path: 'delivery-boys/:id',
         element: <LazyPage><DeliveryBoyDetailPage /></LazyPage>,
+      },
+      {
+        path: 'withdrawals',
+        element: <LazyPage><WithdrawalsPage /></LazyPage>,
       },
       {
         path: 'subscriptions',

@@ -8,6 +8,7 @@ import {
   CalendarClock,
   Bell,
   Settings,
+  Banknote,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -42,6 +43,12 @@ export const navigation: NavGroup[] = [
     items: [
       { title: 'Orders', href: '/orders', icon: ShoppingCart },
       { title: 'Subscriptions', href: '/subscriptions', icon: CalendarClock },
+    ],
+  },
+  {
+    label: 'Finance',
+    items: [
+      { title: 'Withdrawals', href: '/withdrawals', icon: Banknote },
     ],
   },
   {

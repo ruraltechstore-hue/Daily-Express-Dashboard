@@ -6,11 +6,15 @@ export type AppRole = 'admin' | 'customer' | 'delivery';
 export type OrderStatus = 'pending' | 'accepted' | 'packed' | 'out_for_delivery' | 'delivered' | 'cancelled';
 export type PaymentMethod = 'cod' | 'razorpay';
 export type PaymentStatus = 'pending' | 'success' | 'failed' | 'refunded';
-export type NotificationType = 'new_order' | 'order_accepted' | 'payment_success' | 'out_for_delivery' | 'delivered';
+export type NotificationType = 'new_order' | 'order_accepted' | 'payment_success' | 'out_for_delivery' | 'delivered' | 'order_delivered' | 'payout_credited';
 export type DevicePlatform = 'android' | 'ios' | 'web';
 export type SubFrequency = 'daily' | 'alternate_days' | 'weekly' | 'custom';
 export type SubStatus = 'active' | 'paused' | 'cancelled' | 'expired';
 export type AuditAction = 'create' | 'update' | 'delete' | 'login' | 'logout' | 'assign' | 'cancel' | 'refund' | 'activate' | 'deactivate';
+export type WithdrawalStatus = 'pending' | 'processing' | 'completed' | 'rejected';
+export type PayoutMethodType = 'upi' | 'bank';
+export type DeliveryPartnerStatus = 'pending' | 'approved' | 'rejected' | 'suspended';
+export type DeliveryTransactionType = 'earning' | 'withdrawal' | 'penalty' | 'cash_collected' | 'doorstep_upi' | 'cash_deposit' | 'cash_offset' | 'refund';
 
 // ─── Tables ──────────────────────────────────────────────────────
 
@@ -261,6 +265,87 @@ export interface AuditLog {
   created_at: string;
   // Joined
   actor?: Profile;
+}
+
+export interface DeliveryWallet {
+  id: string;
+  balance: number;
+  total_earned: number;
+  total_withdrawn: number;
+  cash_in_hand: number;
+  updated_at: string;
+}
+
+export interface DeliveryPartner {
+  id: string;
+  status: DeliveryPartnerStatus;
+  vehicle_type: string;
+  vehicle_number: string;
+  driving_license: string;
+  vehicle_image?: string | null;
+  driving_license_image?: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface DeliveryPayoutMethod {
+  id: string;
+  delivery_boy_id: string;
+  method_type: PayoutMethodType;
+  upi_id?: string | null;
+  account_number?: string | null;
+  ifsc_code?: string | null;
+  account_holder_name?: string | null;
+  bank_name?: string | null;
+  is_primary: boolean;
+  is_verified: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface DeliveryTransaction {
+  id: string;
+  delivery_boy_id: string;
+  amount: number;
+  type: DeliveryTransactionType;
+  description: string | null;
+  order_id: string | null;
+  created_at: string;
+  // Joined
+  order?: {
+    id: string;
+    order_number: string;
+  };
+}
+
+export interface DeliveryWithdrawalRequest {
+  id: string;
+  request_number: string;
+  delivery_boy_id: string;
+  amount: number;
+  payout_method_type: PayoutMethodType;
+  payout_details: {
+    method: 'upi' | 'bank';
+    upi_id?: string;
+    account_number?: string;
+    full_account_number?: string;
+    ifsc_code?: string;
+    account_holder_name?: string;
+    bank_name?: string;
+  };
+  status: WithdrawalStatus;
+  transaction_reference: string | null;
+  admin_notes: string | null;
+  rejection_reason: string | null;
+  created_at: string;
+  processed_at: string | null;
+  processed_by: string | null;
+  // Joined
+  delivery_boy?: Profile & {
+    delivery_wallets?: DeliveryWallet | DeliveryWallet[];
+    delivery_partners?: DeliveryPartner | DeliveryPartner[];
+  };
+  processed_by_admin?: Profile;
 }
 
 // ─── Insert/Update types ─────────────────────────────────────────

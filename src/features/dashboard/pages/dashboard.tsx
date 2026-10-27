@@ -32,6 +32,7 @@ import {
   fetchTopProducts,
   fetchRecentOrders,
 } from '@/features/dashboard/api/dashboard.api';
+import { useWithdrawalStats } from '@/features/withdrawals/hooks/use-withdrawals';
 
 const container = {
   hidden: { opacity: 0 },
@@ -69,6 +70,8 @@ export function DashboardPage() {
     queryFn: () => fetchRecentOrders(5),
   });
 
+  const { data: withdrawalStats } = useWithdrawalStats();
+
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="space-y-6">
       {/* Header */}
@@ -76,6 +79,27 @@ export function DashboardPage() {
         <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
         <p className="text-text-muted text-sm mt-1">Welcome back. Here&apos;s your business overview.</p>
       </motion.div>
+
+      {/* Pending Withdrawals Banner */}
+      {withdrawalStats && withdrawalStats.pendingCount > 0 && (
+        <motion.div variants={item}>
+          <div className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-amber-50/80 border border-amber-200 text-xs text-amber-900">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-amber-500 animate-pulse" />
+              <span>
+                <strong>{withdrawalStats.pendingCount} rider payout request{withdrawalStats.pendingCount > 1 ? 's' : ''}</strong> ({formatCurrency(withdrawalStats.pendingAmount)}) awaiting review
+              </span>
+            </div>
+            <button
+              onClick={() => navigate('/withdrawals')}
+              className="font-medium text-amber-900 hover:underline flex items-center gap-1 shrink-0"
+            >
+              <span>Review payouts</span>
+              <ArrowRight className="h-3 w-3" />
+            </button>
+          </div>
+        </motion.div>
+      )}
 
       {/* Stat Cards */}
       <motion.div variants={item} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
